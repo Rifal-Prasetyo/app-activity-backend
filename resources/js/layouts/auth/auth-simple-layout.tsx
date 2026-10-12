@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react';
 import AppLogoIcon from '@/components/app-logo-icon';
 import { home } from '@/routes';
 import type { AuthLayoutProps } from '@/types';
+import devices from '@/routes/devices';
 
 export default function AuthSimpleLayout({
     children,
@@ -22,6 +23,7 @@ export default function AuthSimpleLayout({
                             </div>
                             <span className="sr-only">{title}</span>
                         </Link>
+
 
                         <div className="space-y-2 text-center">
                             <h1 className="text-xl font-medium">{title}</h1>

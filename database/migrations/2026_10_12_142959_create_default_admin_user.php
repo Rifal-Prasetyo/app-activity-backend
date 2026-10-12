@@ -1,0 +1,31 @@
+<?php
+
+use App\Models\User;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+
+    public string $name = 'Admin';
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        User::forceCreate([
+            'name' => $this->name,
+            'email' => 'admin@gmail.com',
+            'password' => 'admin@123.',
+            'email_verified_at' => now()
+        ]);
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        User::where('name', $this->name)->forceDelete();
+    }
+};
