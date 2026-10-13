@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Device;
+use App\Services\FcmService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -56,7 +57,7 @@ class DeviceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, FcmService $fcmService)
     {
         //
         $validated = $request->validate([
@@ -71,6 +72,9 @@ class DeviceController extends Controller
         $device->update($validated);
 
         Inertia::flash('success', 'berhasil update status device');
+        if ($device->fcm_token) {
+            $fcmService->sendLockCommand($device->fcm_token, $device->is_locked);
+        }
 
         return redirect()->back();
     }
